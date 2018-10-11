@@ -1,0 +1,53 @@
+#!/bin/bash
+#PBS -N using_tmp
+#PBS -W group_list=...
+#PBS -q debug
+#PBS -l select=1:ncpus=1:mem=6gb:pcmem=6gb
+#PBS -l walltime=00:10:00
+#PBS -l cput=00:10:00
+
+cd ~/Data_Management
+
+#Create an archive of the input files
+...
+
+# This line caclulates available space in /tmp
+available_space=$(( 800 - $(( $(du -s /tmp | cut -f1) /1024/1024 )) ))
+
+# The if statement checks if /tmp has enough space for your job.
+# Here the value for the storage requirement is 10 GB,
+# although we are not going to use that much.
+
+echo "Check if /tmp has 10GB of storage available"
+if [ $available_space -gt 10 ]
+then
+   echo "There is enough storage"
+   echo $available_space GB
+
+
+# Copy tar archive with the input files to /tmp
+...
+# Change your working directory to /tmp
+...
+# Unpack the archive of the input files
+...
+# Go to the directory with the input files
+...
+
+
+# Copy the executable script edit_files.sh to the working directory in /tmp
+...
+# Run the executable. This would be where you run your calculation in the actual job.
+...
+# Create the archive with the output files and 
+...
+# Copy the archive with the output files to the /Data_mangement/output_files directory in your home
+...
+
+
+else
+
+# If there is not enough space on /tmp the job will not run and return these messages instead
+   echo "There is not enough storage"
+   echo $available_space GB
+fi
