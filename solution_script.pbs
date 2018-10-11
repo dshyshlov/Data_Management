@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -N using_tmp
-#PBS -W group_list=hpcteam
+#PBS -W group_list=...
 #PBS -q debug
 #PBS -l select=1:ncpus=1:mem=6gb:pcmem=6gb
 #PBS -l walltime=00:10:00
